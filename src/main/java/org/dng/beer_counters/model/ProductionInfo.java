@@ -24,9 +24,9 @@ public class ProductionInfo {
     @Column
     private WorkMode mode;
 
-    @Basic
-    @Column
-    private long nomenclatureId;
+    @ManyToOne()
+    @JoinColumn(name = "nomenclature_id", referencedColumnName = "id", nullable = true)
+    private Nomenclature nomenclature;
 
     @Basic
     @Column
@@ -54,7 +54,7 @@ public class ProductionInfo {
 
     @Basic
     @Column
-    private String guilty;
+    private String guilty; //виноватый ))
 
 
 
