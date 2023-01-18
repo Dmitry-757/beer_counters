@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Subjects</title>
+    <title>Nomenclature</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
 <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
@@ -10,12 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </head>
 <body>
-<!--    <span th:text = "${'Hello mr. ' +name}"></span>-->
-<!--    <div class="container-fluid text-center">-->
-<!--        <h1>Welcome ;)</h1>-->
-<!--        <a th:href="@{/start}" class="header">start page</a>-->
-<!--    </div>-->
-<!--<header th:insert="fragments/layouts.html :: myHeader1"> </header>-->
 
     <div class="container">
         <div class="row">
@@ -39,7 +33,7 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" th:href="@{/nomenclature/addEditItem}">Add</a> </li>
+<!--                                    <li><a class="dropdown-item" th:href="@{/nomenclature/addEditItem}">Add</a> </li>-->
                                     <li><a class="dropdown-item" th:href="@{/nomenclature/addEditItem(id=${item.getId})}">Edit</a> </li>
                                     <li><a class="dropdown-item" th:href="@{/nomenclature/delete(id=${item.getId})}">Delete</a> </li>
                                 </ul>

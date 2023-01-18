@@ -2,18 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>work with subjects</title>
+    <title>work with nomenclature</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
     <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
 
 </head>
 <body>
-<!--<div class="container-fluid text-center">-->
-<!--    <h1>Welcome ;)</h1>-->
-<!--    <a th:href="@{/start}" class="header">start page</a>-->
-<!--</div>-->
-<!--<header th:insert="fragments/layouts.html :: myHeader1"> </header>-->
 
 <div class="container-fluid text-center">
     <h1 th:text="${item.id == null } ? 'Adding' : 'Editing'"></h1>
