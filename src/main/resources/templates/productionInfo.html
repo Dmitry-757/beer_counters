@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Students list</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--<header th:insert="fragments/layouts.html :: myHeader1"> </header>-->
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mt-5 mb-5">
+                <table id="example" class="table table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>date</th>
+                        <th>time</th>
+                        <th>mode</th>
+                        <th>nomenclature</th>
+                        <th>counterBegin</th>
+                        <th>counterEnd</th>
+                        <th>valueProductionPassed2Store</th>
+                        <th>valueProductionReturned2Manufacturing</th>
+                        <th>valueLoss</th>
+                        <th>Comment</th>
+                        <th>guilty</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item, iterStat : ${listOfItems}"
+                        th:style="${iterStat.odd} ? 'font-weight: bold;'">
+                        <td th:text="${iterStat.index}+1" ></td>
+                        <td th:text="${item.getDate()}"></td>
+                        <td th:text="${item.getTime()}"></td>
+                        <td th:text="${item.getMode()}"></td>
+<!--                        <td th:text="${item.getNomenclature()}"></td>-->
+                        <td th:text="${ item.getNomenclature() != null ? item.getNomenclature().getName() : ''}"></td>
+                        <td th:text="${item.getCounterBegin()}"></td>
+                        <td th:text="${item.getCounterEnd()}"></td>
+                        <td th:text="${item.getValueProductionPassed2Store()}"></td>
+                        <td th:text="${item.getValueProductionReturned2Manufacturing()}"></td>
+                        <td th:text="${item.getValueLoss()}"></td>
+                        <td th:text="${item.getComment()}"></td>
+                        <td th:text="${item.getGuilty()}"></td>
+                        <td>
+                            <div class="dropend">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                        id="dropdownMenuButton1">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem}">Add</a> </li>
+                                    <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem(id=${item.getId})}">Edit</a> </li>
+                                    <li><a class="dropdown-item" th:href="@{/productionInfo/delete(id=${item.getId})}">Delete</a> </li>
+                                </ul>
+                            </div>
+<!--                            <a th:href="@{/productionInfo/addEditItem}">Add</a>-->
+<!--                            <a th:href="@{/productionInfo/addEditItem(id=${item.getId})}">Edit</a>-->
+<!--                            <a th:href="@{/productionInfo/delete(id=${item.getId})}">Delete</a>-->
+<!--                            <a th:href="@{productionInfo/details(id=${item.getId})}">Details</a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <button type="button" th:href="@{/students/addEditItem}" class="btn btn-primary d-flex align-items-center"> Add</button>-->
+                <a th:href="@{/productionInfo/addEditItem}" class="btn btn-primary ">Add item</a>
+                <br>
+                <br>
+                <a th:href="@{/start}" class="header">main menu</a>
+            </div>
+        </div>
+    </div>
+<!--<span>ggggggggggggggggggggggggggggg</span>-->
+<!--<div class="container">-->
+<!--    <div class="dropdown">-->
+<!--        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--            Dropdown-->
+<!--        </button>-->
+<!--        <ul class="dropdown-menu">-->
+<!--            <li><button class="dropdown-item" type="button">Action</button></li>-->
+<!--            <li><button class="dropdown-item" type="button">Another action</button></li>-->
+<!--            <li><button class="dropdown-item" type="button">Something else here</button></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+</html>
