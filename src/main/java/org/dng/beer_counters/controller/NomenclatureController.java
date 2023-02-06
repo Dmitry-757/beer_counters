@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class NomenclatureController {
-    private NomenclatureService service;
+    private final NomenclatureService service;
     private final String prefixUrl = "/nomenclature";
 
     @Autowired
