@@ -56,8 +56,8 @@
 <!--        </div>-->
         <div style="margin-bottom: 25px" class="mb-3">
             <label for="mode">Mode</label>
-            <select id="mode" th:field="*{nomenclature}" class="form-control">
-                <option th:each="mode : ${subItemList2}" th:value="${mode.getValue()}" th:text="${mode.name()}"></option>
+            <select id="mode" th:field="*{mode}" class="form-control">
+                <option th:each="mode : ${subItemList2}" th:value="${mode}" th:text="${mode}"></option>
             </select>
         </div>
 

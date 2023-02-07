@@ -34,8 +34,8 @@ public class ProductionInfoService {
                 ProductionInfo editedItem = optionalItem.get();
 
                 if (!editedItem.equals(item)){
-                    editedItem.setComment(item.getComment());
-                    repository.save(editedItem);
+//                    editedItem.setComment(item.getComment());
+                    repository.save(item);
                 }
             }
         } else{

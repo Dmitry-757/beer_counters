@@ -22,6 +22,7 @@ public class ProductionInfo {
 
     @Basic
     @Column
+    @Enumerated(EnumType.STRING)
     private WorkMode mode;
 
     @ManyToOne()
