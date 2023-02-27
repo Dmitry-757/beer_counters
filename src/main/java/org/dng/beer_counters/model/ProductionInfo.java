@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
+@Entity(name = "production_info")
 public class ProductionInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
