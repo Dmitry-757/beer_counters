@@ -21,17 +21,17 @@
                     <thead>
                     <tr>
                         <th>№</th>
-                        <th>date</th>
-                        <th>time</th>
-                        <th>mode</th>
-                        <th>nomenclature</th>
-                        <th>counterBegin</th>
-                        <th>counterEnd</th>
-                        <th>valueProductionPassed2Store</th>
-                        <th>valueProductionReturned2Manufacturing</th>
-                        <th>valueLoss</th>
-                        <th>Comment</th>
-                        <th>guilty</th>
+                        <th>Дата</th>
+                        <th>Время начала работы</th>
+                        <th>Режим работы</th>
+                        <th>Продукция</th>
+                        <th>расходомер на начало (дал)</th>
+                        <th>Расходомер на конец (дал)</th>
+                        <th>Передано на склад (шт)</th>
+                        <th>Возврат в производство (дал)</th>
+                        <th>Потери (дал)</th>
+                        <th>Комментарий</th>
+                        <th>Виновантый</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem}">Add</a> </li>
+<!--                                    <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem}">Add</a> </li>-->
                                     <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem(id=${item.getId})}">Edit</a> </li>
                                     <li><a class="dropdown-item" th:href="@{/productionInfo/delete(id=${item.getId})}">Delete</a> </li>
                                 </ul>
