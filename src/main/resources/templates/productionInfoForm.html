@@ -10,12 +10,13 @@
 </head>
 <body>
 <div class="container-fluid text-center">
-    <h1>Welcome ;)</h1>
-    <a th:href="@{/start}" class="header">start page</a>
+<!--    <h1>Welcome ;)</h1>-->
+    <br>
+    <a th:href="@{/start}" class="h2">main menu</a>
 </div>
 
 <div class="container-fluid text-center">
-    <h1 th:text="${item.id == null } ? 'Adding' : 'Editing'"></h1>
+    <h1 th:text="${item.id == null } ? 'Новая запись' : 'Редактирование'"></h1>
 </div>
 
 
@@ -28,7 +29,7 @@
         <input type="hidden" th:field="*{id}"/>
 
         <div style="margin-bottom: 25px" class="mb-3">
-            <label for="nomenclature">Nomenclature</label>
+            <label for="nomenclature">Номенклатура</label>
             <select id="nomenclature" th:field="*{nomenclature}" class="form-control">
 <!--                <option th:each="nomenclature : ${subItemList}" th:value="${nomenclature.id}" th:text="${nomenclature.getName()}"-->
 <!--                th:selected="${item.getNomenclature()}"></option>-->
@@ -37,14 +38,14 @@
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
-            <label for="date" class="form-label">Date</label>
+            <label for="date" class="form-label">Дата</label>
             <input id="date" type="date" th:field="*{date}" placeholder="date (*)" class="form-control"/>
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            <label for="time">Time</label>
+            <label for="time">Время</label>
             <input id="time" type="time" th:field="*{time}" placeholder="time (*)" class="form-control"/>
         </div>
 <!--        <div style="margin-bottom: 25px" class="mb-3">-->
@@ -55,7 +56,7 @@
 <!--            <input th:field="*{mode}" placeholder="mode (*)" class="form-control">-->
 <!--        </div>-->
         <div style="margin-bottom: 25px" class="mb-3">
-            <label for="mode">Mode</label>
+            <label for="mode">Режим</label>
             <select id="mode" th:field="*{mode}" class="form-control">
                 <option th:each="mode : ${subItemList2}" th:value="${mode}" th:text="${mode}"></option>
             </select>
@@ -67,14 +68,14 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Счетчик на начало</label>
-            <input th:field="*{counterBegin}" placeholder="counterBegin (*)" class="form-control">
+            <input th:field="*{counterBegin}" placeholder="Счетчик на начало" class="form-control">
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Счетчик на конец</label>
-            <input th:field="*{counterEnd}" placeholder="counterBegin (*)" class="form-control">
+            <input th:field="*{counterEnd}" placeholder="Счетчик на конец" class="form-control">
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
@@ -82,37 +83,37 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Объем продукции переданной на склад</label>
-            <input th:field="*{valueProductionPassed2Store}" placeholder="valueProductionPassed2Store (*)" class="form-control">
+            <input th:field="*{valueProductionPassed2Store}" placeholder="Объем продукции переданной на склад" class="form-control">
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Объем продукции возвращенной в производство</label>
-            <input th:field="*{valueProductionReturned2Manufacturing}" placeholder="valueProductionReturned2Manufacturing (*)" class="form-control">
+            <input th:field="*{valueProductionReturned2Manufacturing}" placeholder="Объем продукции возвращенной в производство" class="form-control">
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            <label>ValueLoss</label>
-            <input th:field="*{valueLoss}" placeholder="valueLoss (*)" class="form-control">
+            <label>Объем потерь</label>
+            <input th:field="*{valueLoss}" placeholder="Объем потерь" class="form-control">
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            <label>Comment</label>
-            <input th:field="*{comment}" placeholder="comment (*)" class="form-control">
+            <label>Комментарий</label>
+            <input th:field="*{comment}" placeholder="комментарий" class="form-control">
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            <label>Guilty</label>
-            <input th:field="*{guilty}" placeholder="guilty (*)" class="form-control">
+            <label>Ответственный</label>
+            <input th:field="*{guilty}" placeholder="виноватый ;)" class="form-control">
         </div>
 
 
