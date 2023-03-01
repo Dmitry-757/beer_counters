@@ -12,29 +12,12 @@
 </head>
 
 
-<style>
-    /*.table-fixed thead {*/
-    /*    width: 97%;*/
-    /*}*/
-    /*.table-fixed tbody {*/
-    /*    height: 530px;*/
-    /*    overflow-y: auto;*/
-    /*    width: 100%;*/
-    /*}*/
-    /*.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {*/
-    /*    display: block;*/
-    /*}*/
-    /*.table-fixed tbody td, .table-fixed thead > tr> th {*/
-    /*    float: left;*/
-    /*    border-bottom-width: 0;*/
-    /*}*/
-</style>
 
 <body>
 <!--<header th:insert="fragments/layouts.html :: myHeader1"> </header>-->
     <div class="container-fluid text-center fixed-top " style="background: white; z-index: 3">
         <br>
-        <a th:href="@{/start}" class="h2">main menu</a>
+        <a th:href="@{/start}" class="h2">Основное меню</a>
     </div>
 
 <!-- Navigation -->
@@ -44,7 +27,7 @@
             <div class="col-lg-13 mt-5 mb-5">
 
                 <table class="table table-striped table-hover table-bordered" style="width: 100%">
-                    <thead style="position: sticky; top: 60px; background: white; z-index: 2">
+                    <thead style="position: sticky; top: 55px; background: white; z-index: 2">
 <!--                    <thead class="fixed-bottom">-->
                     <tr>
                         <th>№</th>
@@ -88,39 +71,20 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-<!--                                    <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem}">Add</a> </li>-->
                                     <li><a class="dropdown-item" th:href="@{/productionInfo/addEditItem(id=${item.getId})}">Edit</a> </li>
                                     <li><a class="dropdown-item" th:href="@{/productionInfo/delete(id=${item.getId})}">Delete</a> </li>
                                 </ul>
                             </div>
-<!--                            <a th:href="@{/productionInfo/addEditItem}">Add</a>-->
-<!--                            <a th:href="@{/productionInfo/addEditItem(id=${item.getId})}">Edit</a>-->
-<!--                            <a th:href="@{/productionInfo/delete(id=${item.getId})}">Delete</a>-->
-<!--                            <a th:href="@{productionInfo/details(id=${item.getId})}">Details</a>-->
                         </td>
                     </tr>
                     </tbody>
                 </table>
 
-<!--                <button type="button" th:href="@{/students/addEditItem}" class="btn btn-primary d-flex align-items-center"> Add</button>-->
                 <a th:href="@{/productionInfo/addEditItem}" class="btn btn-primary ">Add item</a>
                 <br>
             </div>
         </div>
     </div>
-<!--<span>ggggggggggggggggggggggggggggg</span>-->
-<!--<div class="container">-->
-<!--    <div class="dropdown">-->
-<!--        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--            Dropdown-->
-<!--        </button>-->
-<!--        <ul class="dropdown-menu">-->
-<!--            <li><button class="dropdown-item" type="button">Action</button></li>-->
-<!--            <li><button class="dropdown-item" type="button">Another action</button></li>-->
-<!--            <li><button class="dropdown-item" type="button">Something else here</button></li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</div>-->
 
 </body>
 </html>
