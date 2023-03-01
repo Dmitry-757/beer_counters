@@ -56,6 +56,13 @@
 <!--            <input th:field="*{mode}" placeholder="mode (*)" class="form-control">-->
 <!--        </div>-->
         <div style="margin-bottom: 25px" class="mb-3">
+            <label for="lineType">Линия</label>
+            <select id="lineType" th:field="*{typeOfLine}" class="form-control">
+                <option th:each="typeOfLine : ${subItemList3}" th:value="${typeOfLine}" th:text="${typeOfLine}"></option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 25px" class="mb-3">
             <label for="mode">Режим</label>
             <select id="mode" th:field="*{mode}" class="form-control">
                 <option th:each="mode : ${subItemList2}" th:value="${mode}" th:text="${mode}"></option>

@@ -1,6 +1,7 @@
 package org.dng.beer_counters.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,48 +14,43 @@ public class ProductionInfo {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Basic
     @Column
+    @Enumerated(EnumType.ORDINAL)
+    private TypeOfLine typeOfLine;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @Basic
     @Column
     private LocalTime time;
 
-    @Basic
     @Column
     @Enumerated(EnumType.ORDINAL)
     private WorkMode mode;
 
     @ManyToOne()
-    @JoinColumn(name = "nomenclature_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "nomenclature_id", referencedColumnName = "id")
     private Nomenclature nomenclature;
 
-    @Basic
     @Column
     private int counterBegin;
 
-    @Basic
     @Column
     private int counterEnd;
 
-    @Basic
     @Column
     private int valueProductionPassed2Store;
 
-    @Basic
     @Column
     private int valueProductionReturned2Manufacturing;
 
-    @Basic
     @Column
     private int valueLoss;
 
-    @Basic
     @Column
     private String comment;
 
-    @Basic
     @Column
     private String guilty; //виноватый ))
 
@@ -69,6 +65,10 @@ public class ProductionInfo {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public TypeOfLine getTypeOfLine() {
+        return typeOfLine;
     }
 
     public WorkMode getMode() {
@@ -122,6 +122,10 @@ public class ProductionInfo {
 
     public void setMode(WorkMode mode) {
         this.mode = mode;
+    }
+
+    public void setTypeOfLine(TypeOfLine typeOfLine) {
+        this.typeOfLine = typeOfLine;
     }
 
     public void setNomenclature(Nomenclature nomenclature) {

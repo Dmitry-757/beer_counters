@@ -51,6 +51,7 @@
                         <th>№</th>
                         <th>Дата</th>
                         <th>Время начала работы</th>
+                        <th>Линия</th>
                         <th>Режим работы</th>
                         <th>Продукция</th>
                         <th>расходомер на начало (дал)</th>
@@ -69,7 +70,9 @@
                         <td th:text="${iterStat.index}+1" ></td>
                         <td th:text="${item.getDate()}"></td>
                         <td th:text="${item.getTime()}"></td>
+                        <td th:text="${item.getTypeOfLine()}"></td>
                         <td th:text="${item.getMode()}"></td>
+
 <!--                        <td th:text="${item.getNomenclature()}"></td>-->
                         <td th:text="${ item.getNomenclature() != null ? item.getNomenclature().getName() : ''}"></td>
                         <td th:text="${item.getCounterBegin()}"></td>

@@ -1,8 +1,7 @@
 package org.dng.beer_counters.service;
 
-import org.dng.beer_counters.model.Nomenclature;
+
 import org.dng.beer_counters.model.ProductionInfo;
-import org.dng.beer_counters.repository.NomenclatureRepository;
 import org.dng.beer_counters.repository.ProductionInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

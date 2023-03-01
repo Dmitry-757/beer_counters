@@ -2,6 +2,7 @@ package org.dng.beer_counters.controller;
 
 import org.dng.beer_counters.model.Nomenclature;
 import org.dng.beer_counters.model.ProductionInfo;
+import org.dng.beer_counters.model.TypeOfLine;
 import org.dng.beer_counters.model.WorkMode;
 import org.dng.beer_counters.service.NomenclatureService;
 import org.dng.beer_counters.service.ProductionInfoService;
@@ -9,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -50,7 +49,7 @@ public class ProductionInfoController {
         //model.addAttribute("id", id);
         ProductionInfo item;
         if (id != null) {
-            item = productionInfoService.getById(id).get();
+            item = productionInfoService.getById(id).orElse(null);
         } else item = new ProductionInfo();
         model.addAttribute("item", item);
 
@@ -58,13 +57,14 @@ public class ProductionInfoController {
         subItemList = nomenclatureService.getAll();
         model.addAttribute("subItemList", subItemList);
 
-        List<WorkMode> subItemList2 = new LinkedList<>();
-        subItemList2.add(WorkMode.PRODUCTION);
-        subItemList2.add(WorkMode.STOPPING);
-        subItemList2.add(WorkMode.WASHING);
+        List<WorkMode> subItemList2 = WorkMode.getListOfItems();
+
+        List<TypeOfLine> subItemList3 = TypeOfLine.getListOfItems();
+
 
         model.addAttribute("subItemList", subItemList);
         model.addAttribute("subItemList2", subItemList2);
+        model.addAttribute("subItemList3", subItemList3);
 
         return "productionInfoForm";
     }
