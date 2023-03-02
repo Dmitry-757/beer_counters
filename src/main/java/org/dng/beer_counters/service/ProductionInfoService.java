@@ -4,6 +4,8 @@ package org.dng.beer_counters.service;
 import org.dng.beer_counters.model.ProductionInfo;
 import org.dng.beer_counters.repository.ProductionInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +21,13 @@ public class ProductionInfoService {
     }
 
     public List<ProductionInfo> getAll(){
-        return (List<ProductionInfo>) repository.findAll();
+        return repository.findAll();
     }
+
+    public Page<ProductionInfo> getAllWithPagination(Pageable paging){
+        return repository.findAll(paging);
+    }
+
 
     public Optional<ProductionInfo> getById(long id){
         return repository.findById(id);

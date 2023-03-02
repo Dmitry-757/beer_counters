@@ -49,7 +49,9 @@
                     <tbody>
                     <tr th:each="item, iterStat : ${listOfItems}"
                         th:style="${iterStat.odd} ? 'font-weight: bold;'">
-                        <td th:text="${iterStat.index}+1" ></td>
+<!--                        <td th:text="${iterStat.index}+1" ></td>-->
+                        <td th:text="${(currentPage - 1)*5+iterStat.index}+1" ></td>
+
                         <td th:text="${item.getDate()}"></td>
                         <td th:text="${item.getTime()}"></td>
                         <td th:text="${item.getTypeOfLine()}"></td>
@@ -79,6 +81,33 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div th:if="${totalPages > 1}"></div>
+                <div class="row col-sm-10">
+                    <div class="col-sm-2">Pagination</div>
+                    <div class="col-sm-1 page-item">
+                        <div class="col-sm-1 page-item">
+                            <a th:if="${currentPage==1}" >Previous</a>
+<!--                            <a th:if="${currentPage!=1}" th:href="@{'/productionInfo/'+${currentPage - 1}}">Previous</a>-->
+                            <a th:if="${currentPage!=1}" th:href="@{/productionInfo(pageNo=${currentPage - 1})}">Previous</a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+                      <span class="page-item" th:each="i: ${#numbers.sequence(1,totalPages)}">
+                      <a th:if="${currentPage!=i}" th:href="@{/productionInfo(pageNo=${i})}">[[${i}]]</a>
+                      <span th:unless="${currentPage!=i}">[[${i}]]</span>
+                      </span>
+                    </div>
+                    <div class="col-sm-1 page-item">
+                        <a th:if="${currentPage < totalPages}" th:href="@{/productionInfo(pageNo=${currentPage + 1})}">Next</a>
+                        <span class="page-item" th:unless="${currentPage < totalPages}">Next</span>
+                    </div>
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{/productionInfo(pageNo=${totalPages})}">Last</a>
+                        <span class="page-item" th:unless="${currentPage < totalPages}">Last</span>
+                    </div>
+                </div>
 
                 <a th:href="@{/productionInfo/addEditItem}" class="btn btn-primary ">Add item</a>
                 <br>

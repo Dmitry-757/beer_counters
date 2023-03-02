@@ -7,9 +7,14 @@ import org.dng.beer_counters.model.WorkMode;
 import org.dng.beer_counters.service.NomenclatureService;
 import org.dng.beer_counters.service.ProductionInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,13 +35,24 @@ public class ProductionInfoController {
     }
 
     @GetMapping("/productionInfo")
-    public String showStudentsList(Model model) {
-        model.addAttribute("listOfItems", productionInfoService.getAll());
+    public String showItemsList(Model model,
+                                @RequestParam(defaultValue = "0", required = true) int pageNo
+    ) {
+        int pageSize = 5;
+        List<ProductionInfo> items = new ArrayList<>();
+        Pageable paging = PageRequest.of(pageNo-1, pageSize);
+        Page<ProductionInfo> pageItems = productionInfoService.getAllWithPagination(paging);
+        items = pageItems.getContent();
+
+        model.addAttribute("listOfItems", items);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", pageItems.getTotalPages());
+        model.addAttribute("totalRecords", pageItems.getTotalElements());
         return "productionInfo";
     }
 
     @GetMapping("productionInfo/delete")
-    public String removeStudent(Model model, @RequestParam(name = "id") long id) {
+    public String removeItem(Model model, @RequestParam(name = "id") long id) {
         if (id > 0) {
             productionInfoService.delete(id);
         }
@@ -70,14 +86,14 @@ public class ProductionInfoController {
     }
 
     @PostMapping("productionInfo/add")
-    public String addStudent(@ModelAttribute(value = "item") ProductionInfo item) {
+    public String addItem(@ModelAttribute(value = "item") ProductionInfo item) {
         productionInfoService.saveOrUpdate(item);
 //        return "productionInfo";
         return "redirect:/productionInfo";
     }
 
     @PostMapping("productionInfo/update")
-    public String updateStudent(@ModelAttribute(value = "item") ProductionInfo item) {
+    public String updateItem(@ModelAttribute(value = "item") ProductionInfo item) {
 
         productionInfoService.saveOrUpdate(item);
         return "redirect:/productionInfo";
