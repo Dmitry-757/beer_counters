@@ -36,9 +36,9 @@ public class ProductionInfoController {
 
     @GetMapping("/productionInfo")
     public String showItemsList(Model model,
-                                @RequestParam(defaultValue = "0", required = true) int pageNo
+                                @RequestParam(defaultValue = "1", required = true) int pageNo
     ) {
-        int pageSize = 5;
+        int pageSize = 10;
         List<ProductionInfo> items = new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo-1, pageSize);
         Page<ProductionInfo> pageItems = productionInfoService.getAllWithPagination(paging);
