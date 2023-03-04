@@ -106,7 +106,8 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Объем продукции возвращенной в производство</label>
-            <input th:field="*{valueProductionReturned2Manufacturing}" placeholder="Объем продукции возвращенной в производство" class="form-control">
+            <input id="valueProductionReturned2Manufacturing" th:field="*{valueProductionReturned2Manufacturing}" placeholder="Объем продукции возвращенной в производство" class="form-control">
+            <span id="valueProductionReturned2ManufacturingError" class="error" aria-live="polite"></span>
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
@@ -151,11 +152,15 @@
 
     const counterBegin = document.getElementById('counterBegin');
     const counterEnd = document.getElementById('counterEnd');
-     const counterEndError = document.querySelector('#counterEnd + span.error');
+    const counterEndError = document.querySelector('#counterEnd + span.error');
 
     const valueProductionPassed2Store = document.getElementById('valueProductionPassed2Store');
-    // const valueProductionPassed2StoreError = document.querySelector('#valueProductionPassed2Store + span.error');
-    const valueProductionPassed2StoreError = document.getElementById('valueProductionPassed2StoreError');
+    const valueProductionPassed2StoreError = document.querySelector('#valueProductionPassed2Store + span.error');
+    // const valueProductionPassed2StoreError = document.getElementById('valueProductionPassed2StoreError');
+
+    const valueProductionReturned2Manufacturing = document.getElementById('valueProductionReturned2Manufacturing');
+    // const valueProductionReturned2ManufacturingError = document.getElementById('valueProductionReturned2ManufacturingError');
+    const valueProductionReturned2ManufacturingError = document.querySelector('#valueProductionReturned2Manufacturing + span.error');
 
 
     counterEnd.addEventListener('input', function (event) {
@@ -174,21 +179,15 @@
     });
 
     valueProductionPassed2Store.addEventListener('input', function (event) {
-        // Each time the user types something, we check if the
-        // form fields are valid.
-
-
         if ( parseInt(valueProductionPassed2Store.value) > (parseInt(counterEnd.value) - parseInt(counterBegin.value) ) ) {
-            valueProductionPassed2StoreError.textContent = 'Величина должна быть меньше или равна разнице конечных и нач. данных счетчика ! ('
+            valueProductionPassed2StoreError.textContent = 'Величина должна быть меньше или равна разнице конечных и нач. данных счетчика ! ( '
                 + (parseInt(counterEnd.value) - parseInt(counterBegin.value) )+' )';
             valueProductionPassed2StoreError.className = 'error active';
         } else {
             valueProductionPassed2StoreError.className = 'error unActive';
             valueProductionPassed2StoreError.textContent = '';
         }
-
-
-        console.info(parseInt(valueProductionPassed2Store.value)  );
+        //console.info(parseInt(valueProductionPassed2Store.value)  );
 
         // if(!email.validity.valid) {
         //     // Если поле email не валидно, отображаем соответствующее сообщение об ошибке
@@ -198,14 +197,24 @@
         // }
     });
 
+    valueProductionReturned2Manufacturing.addEventListener('input', function (event) {
+        if ( parseInt(valueProductionReturned2Manufacturing.value) >
+            ( parseInt(counterEnd.value) -
+                parseInt(counterBegin.value) -
+                parseInt(valueProductionPassed2Store.value) )
+        ) {
+            valueProductionReturned2ManufacturingError.textContent =
+                'Величина должна быть <= (кон.счетчик - нач. счетчик - передано на склад) ! ( '
+                + (parseInt(counterEnd.value) - parseInt(counterBegin.value) - parseInt(valueProductionPassed2Store.value))+' )';
+            valueProductionReturned2ManufacturingError.className = 'error active';
+        } else {
+            valueProductionReturned2ManufacturingError.className = 'error unActive';
+            valueProductionReturned2ManufacturingError.textContent = '';
+        }
+    });
 
 
-    // function showError() {
-    //     counterEndError.textContent = 'Error!';
-    //
-    //     // Set the styling appropriately
-    //     counterEndError.className = 'error active';
-    // }
+
 </script>
 </body>
 </html>
