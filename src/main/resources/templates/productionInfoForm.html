@@ -6,8 +6,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
     <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
-
 </head>
+    <style>
+    .error {
+        color: red;
+    }
+    </style>
+
 <body>
 <div class="container-fluid text-center">
 <!--    <h1>Welcome ;)</h1>-->
@@ -82,7 +87,10 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Счетчик на конец</label>
-            <input th:field="*{counterEnd}" placeholder="Счетчик на конец" class="form-control">
+            <input id="counterEnd" th:field="*{counterEnd}" placeholder="Счетчик на конец" class="form-control">
+<!--            <p  th:if="(*{counterEnd} <= *{counterBegin})" th:class="${item.counterEnd<=item.counterBegin}? error">-->
+<!--                Invalid counterEnd</p>-->
+            <span class="error" aria-live="polite"></span>
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
@@ -133,5 +141,40 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    // There are many ways to pick a DOM node; here we get the form itself and the email
+    // input box, as well as the span element into which we will place the error message.
+    // const form  = document.getElementsByTagName('form')[0];
+
+    const counterBegin = document.getElementById('counterBegin');
+    const counterEnd = document.getElementById('counterEnd');
+    const counterEndError = document.querySelector('#counterEnd + span.error');
+
+    counterEnd.addEventListener('input', function (event) {
+        // Each time the user types something, we check if the
+        // form fields are valid.
+
+        if (parseInt(counterEnd.value) < parseInt(counterBegin.value)) {
+            counterEndError.textContent = 'Кончные данные счетчика должны быть больше или равны начальным !';
+            counterEndError.className = 'error active';
+            counterEnd.value = 0;
+            // showError();
+        } else {
+            counterEndError.className = 'error unActive';
+            counterEndError.textContent = '';
+        }
+        // console.info((counterEnd.value));
+    });
+
+
+    // function showError() {
+    //     counterEndError.textContent = 'Error!';
+    //
+    //     // Set the styling appropriately
+    //     counterEndError.className = 'error active';
+    // }
+</script>
 </body>
 </html>

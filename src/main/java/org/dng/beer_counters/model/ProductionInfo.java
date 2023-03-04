@@ -1,8 +1,6 @@
 package org.dng.beer_counters.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -25,12 +23,12 @@ public class ProductionInfo {
     private LocalDate date;
 
     @Column
-    @NotNull
+//    @NotNull
     private LocalTime time;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
+//    @NotNull
     private WorkMode mode;
 
     @ManyToOne()
@@ -38,11 +36,11 @@ public class ProductionInfo {
     private Nomenclature nomenclature;
 
     @Column
-    @Size(min = 0, message = "Значение должно быть > 0 !")
+//    @Size(min = 0, message = "Значение должно быть > 0 !")
     private int counterBegin;
 
     @Column
-    @Size(min = 0, message = "Значение должно быть > 0 !")
+//    @Size(min = 0, message = "Значение должно быть > 0 !")
     private int counterEnd;
 
     @Column
