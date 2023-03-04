@@ -80,7 +80,8 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Счетчик на начало</label>
-            <input th:field="*{counterBegin}" placeholder="Счетчик на начало" class="form-control">
+            <input id="counterBegin" th:field="*{counterBegin}" placeholder="Счетчик на начало" class="form-control">
+            <span class="error" aria-live="polite"></span>
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
@@ -115,7 +116,8 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Объем потерь</label>
-            <input th:field="*{valueLoss}" placeholder="Объем потерь" class="form-control">
+            <input id="valueLoss" th:field="*{valueLoss}" placeholder="Объем потерь" class="form-control">
+            <span id="valueLossError" class="error" aria-live="polite"></span>
         </div>
 
         <div style="margin-bottom: 25px" class="mb-3">
@@ -137,7 +139,8 @@
 
         <div class="form-group">
             <div class="col-sm-6 controls">
-                <button type="submit" class="btn btn-primary d-flex align-items-center" th:text="${item.getId() != null } ? 'Save ...' : 'Add'"> Add</button>
+                <span id="btn_submitError" class="error" aria-live="polite"></span>
+                <button id="btn_submit" type="submit" class="btn btn-primary d-flex align-items-center" th:text="${item.getId() != null } ? 'Save ...' : 'Add'"> Add</button>
                 <a th:href="@{/productionInfo}" class="btn btn-warning ">Cancel</a>
             </div>
         </div>
@@ -150,7 +153,12 @@
     // input box, as well as the span element into which we will place the error message.
     // const form  = document.getElementsByTagName('form')[0];
 
+    const form  = document.getElementsByTagName('form')[0];
+    const btn_submitError = document.getElementById('btn_submitError');
+
     const counterBegin = document.getElementById('counterBegin');
+    const counterBeginError = document.querySelector('#counterBegin + span.error');
+
     const counterEnd = document.getElementById('counterEnd');
     const counterEndError = document.querySelector('#counterEnd + span.error');
 
@@ -162,58 +170,192 @@
     // const valueProductionReturned2ManufacturingError = document.getElementById('valueProductionReturned2ManufacturingError');
     const valueProductionReturned2ManufacturingError = document.querySelector('#valueProductionReturned2Manufacturing + span.error');
 
+    const valueLoss = document.getElementById('valueLoss');
+    const valueLossError = document.querySelector('#valueLoss + span.error');
+
+    counterBegin.addEventListener('input', function (event) {
+        // Each time the user types something, we check if the
+        // form fields are valid.
+
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
+        ) {
+            counterBeginError.textContent =
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
+            counterBeginError.className = 'error active';
+            //counterEnd.value = 0;
+            // showError();
+        } else {
+            counterBeginError.className = 'error unActive';
+            counterBeginError.textContent = '';
+
+            counterEndError.className = 'error unActive';
+            counterEndError.textContent = '';
+
+            valueProductionPassed2StoreError.className = 'error unActive';
+            valueProductionPassed2StoreError.textContent = '';
+
+            valueProductionReturned2ManufacturingError.className = 'error unActive';
+            valueProductionReturned2ManufacturingError.textContent = '';
+
+            valueLossError.className = 'error unActive';
+            valueLossError.textContent = '';
+        }
+    });
+
 
     counterEnd.addEventListener('input', function (event) {
         // Each time the user types something, we check if the
         // form fields are valid.
 
-        if (parseInt(counterEnd.value) < parseInt(counterBegin.value)) {
-            counterEndError.textContent = 'Кончные данные счетчика должны быть больше или равны начальным !';
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
+        ) {
+            counterEndError.textContent =
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
             counterEndError.className = 'error active';
             //counterEnd.value = 0;
             // showError();
         } else {
+            counterBeginError.className = 'error unActive';
+            counterBeginError.textContent = '';
+
             counterEndError.className = 'error unActive';
             counterEndError.textContent = '';
+
+            valueProductionPassed2StoreError.className = 'error unActive';
+            valueProductionPassed2StoreError.textContent = '';
+
+            valueProductionReturned2ManufacturingError.className = 'error unActive';
+            valueProductionReturned2ManufacturingError.textContent = '';
+
+            valueLossError.className = 'error unActive';
+            valueLossError.textContent = '';
         }
     });
 
     valueProductionPassed2Store.addEventListener('input', function (event) {
-        if ( parseInt(valueProductionPassed2Store.value) > (parseInt(counterEnd.value) - parseInt(counterBegin.value) ) ) {
-            valueProductionPassed2StoreError.textContent = 'Величина должна быть меньше или равна разнице конечных и нач. данных счетчика ! ( '
-                + (parseInt(counterEnd.value) - parseInt(counterBegin.value) )+' )';
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
+        ) {
+            valueProductionPassed2StoreError.textContent =
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
             valueProductionPassed2StoreError.className = 'error active';
         } else {
+            counterBeginError.className = 'error unActive';
+            counterBeginError.textContent = '';
+
+            counterEndError.className = 'error unActive';
+            counterEndError.textContent = '';
+
             valueProductionPassed2StoreError.className = 'error unActive';
             valueProductionPassed2StoreError.textContent = '';
+
+            valueProductionReturned2ManufacturingError.className = 'error unActive';
+            valueProductionReturned2ManufacturingError.textContent = '';
+
+            valueLossError.className = 'error unActive';
+            valueLossError.textContent = '';
         }
         //console.info(parseInt(valueProductionPassed2Store.value)  );
-
-        // if(!email.validity.valid) {
-        //     // Если поле email не валидно, отображаем соответствующее сообщение об ошибке
-        //     showError();
-        //     // Затем предотвращаем стандартное событие отправки формы
-        //     event.preventDefault();
-        // }
     });
 
     valueProductionReturned2Manufacturing.addEventListener('input', function (event) {
-        if ( parseInt(valueProductionReturned2Manufacturing.value) >
-            ( parseInt(counterEnd.value) -
-                parseInt(counterBegin.value) -
-                parseInt(valueProductionPassed2Store.value) )
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
         ) {
             valueProductionReturned2ManufacturingError.textContent =
-                'Величина должна быть <= (кон.счетчик - нач. счетчик - передано на склад) ! ( '
-                + (parseInt(counterEnd.value) - parseInt(counterBegin.value) - parseInt(valueProductionPassed2Store.value))+' )';
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
             valueProductionReturned2ManufacturingError.className = 'error active';
         } else {
+            counterBeginError.className = 'error unActive';
+            counterBeginError.textContent = '';
+
+            counterEndError.className = 'error unActive';
+            counterEndError.textContent = '';
+
+            valueProductionPassed2StoreError.className = 'error unActive';
+            valueProductionPassed2StoreError.textContent = '';
+
             valueProductionReturned2ManufacturingError.className = 'error unActive';
             valueProductionReturned2ManufacturingError.textContent = '';
+
+            valueLossError.className = 'error unActive';
+            valueLossError.textContent = '';
         }
     });
 
+    valueLoss.addEventListener('input', function (event) {
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
+        ) {
+            valueLossError.textContent =
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
+            valueLossError.className = 'error active';
+        } else {
+            counterBeginError.className = 'error unActive';
+            counterBeginError.textContent = '';
 
+            counterEndError.className = 'error unActive';
+            counterEndError.textContent = '';
+
+            valueProductionPassed2StoreError.className = 'error unActive';
+            valueProductionPassed2StoreError.textContent = '';
+
+            valueProductionReturned2ManufacturingError.className = 'error unActive';
+            valueProductionReturned2ManufacturingError.textContent = '';
+
+            valueLossError.className = 'error unActive';
+            valueLossError.textContent = '';
+        }
+    });
+
+    form.addEventListener('submit', function (event) {
+        if ( parseInt(counterEnd.value) !=
+            (
+                parseInt(counterBegin.value)+
+                parseInt(valueProductionPassed2Store.value) +
+                parseInt(valueProductionReturned2Manufacturing.value) +
+                parseInt(valueLoss.value)
+            )
+        ) {
+            btn_submitError.textContent =
+                'Арифметическая ошибка! (Должно быть: кон.счетчик - нач. счетчик = передано на склад + возврат в производство + объем потерь) ! ';
+            btn_submitError.className = 'error active';
+
+            // Затем предотвращаем стандартное событие отправки формы
+            event.preventDefault();
+
+        // } else {
+        //     btn_submitError.className = 'error unActive';
+        //     btn_submitError.textContent = '';
+        }
+    });
 
 </script>
 </body>

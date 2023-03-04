@@ -27,6 +27,9 @@ public class ProductionInfoService {
     public Page<ProductionInfo> getAllWithPagination(Pageable paging){
         return repository.findAll(paging);
     }
+    public long getCountOfEntities(){
+        return repository.count();
+    }
 
 
     public Optional<ProductionInfo> getById(long id){
@@ -50,8 +53,8 @@ public class ProductionInfoService {
     }
 
     public void delete(long id){
-        if (!repository.existsById(id)){
+//        if (repository.existsById(id)){
             repository.findById(id).ifPresent(repository::delete);
-        }
+//        }
     }
 }

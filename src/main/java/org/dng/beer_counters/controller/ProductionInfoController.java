@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/")
 public class ProductionInfoController {
     private final ProductionInfoService productionInfoService;
     private final NomenclatureService nomenclatureService;
+    private final int pageSize = 10;
 
     @Autowired
     public ProductionInfoController(ProductionInfoService productionInfoService, NomenclatureService nomenclatureService) {
@@ -36,11 +38,18 @@ public class ProductionInfoController {
 
     @GetMapping("/productionInfo")
     public String showItemsList(Model model,
-                                @RequestParam(defaultValue = "1", required = true) int pageNo
+                                @RequestParam(defaultValue = "0", required = true) int pageNo
     ) {
-        int pageSize = 10;
+
         List<ProductionInfo> items = new ArrayList<>();
+//        Pageable paging = PageRequest.of(pageNo-1, pageSize);
+
+        long totalPages = productionInfoService.getCountOfEntities();
+        if (pageNo == 0 ) {
+            pageNo = (int) ((totalPages % pageSize) == 0 ? (totalPages / pageSize) : (totalPages / pageSize) + 1);
+        }
         Pageable paging = PageRequest.of(pageNo-1, pageSize);
+
         Page<ProductionInfo> pageItems = productionInfoService.getAllWithPagination(paging);
         items = pageItems.getContent();
 
@@ -52,11 +61,22 @@ public class ProductionInfoController {
     }
 
     @GetMapping("productionInfo/delete")
-    public String removeItem(Model model, @RequestParam(name = "id") long id) {
+    public String removeItem(Model model, @RequestParam(name = "id") long id ) {
         if (id > 0) {
             productionInfoService.delete(id);
         }
-        model.addAttribute("listOfStudents", productionInfoService.getAll());
+//        model.addAttribute("listOfItems", productionInfoService.getAll());
+        List<ProductionInfo> items = new ArrayList<>();
+        long totalPages = productionInfoService.getCountOfEntities();
+        int pageNo = (int)  ( (totalPages % pageSize) == 0 ? (totalPages / pageSize) : (totalPages / pageSize) +1 );
+        Pageable paging = PageRequest.of(pageNo-1, pageSize);
+        Page<ProductionInfo> pageItems = productionInfoService.getAllWithPagination(paging);
+        items = pageItems.getContent();
+        model.addAttribute("listOfItems", items);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", pageItems.getTotalPages());
+        model.addAttribute("totalRecords", pageItems.getTotalElements());
+
         return "productionInfo";
     }
 
