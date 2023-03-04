@@ -98,7 +98,8 @@
                 <i class="glyphicon glyphicon-user"></i>
             </span>
             <label>Объем продукции переданной на склад</label>
-            <input th:field="*{valueProductionPassed2Store}" placeholder="Объем продукции переданной на склад" class="form-control">
+            <input id="valueProductionPassed2Store" th:field="*{valueProductionPassed2Store}" placeholder="Объем продукции переданной на склад" class="form-control">
+            <span id="valueProductionPassed2StoreError" class="error" aria-live="polite"></span>
         </div>
         <div style="margin-bottom: 25px" class="mb-3">
             <span class="input-group-addon">
@@ -150,7 +151,12 @@
 
     const counterBegin = document.getElementById('counterBegin');
     const counterEnd = document.getElementById('counterEnd');
-    const counterEndError = document.querySelector('#counterEnd + span.error');
+     const counterEndError = document.querySelector('#counterEnd + span.error');
+
+    const valueProductionPassed2Store = document.getElementById('valueProductionPassed2Store');
+    // const valueProductionPassed2StoreError = document.querySelector('#valueProductionPassed2Store + span.error');
+    const valueProductionPassed2StoreError = document.getElementById('valueProductionPassed2StoreError');
+
 
     counterEnd.addEventListener('input', function (event) {
         // Each time the user types something, we check if the
@@ -159,14 +165,39 @@
         if (parseInt(counterEnd.value) < parseInt(counterBegin.value)) {
             counterEndError.textContent = 'Кончные данные счетчика должны быть больше или равны начальным !';
             counterEndError.className = 'error active';
-            counterEnd.value = 0;
+            //counterEnd.value = 0;
             // showError();
         } else {
             counterEndError.className = 'error unActive';
             counterEndError.textContent = '';
         }
-        // console.info((counterEnd.value));
     });
+
+    valueProductionPassed2Store.addEventListener('input', function (event) {
+        // Each time the user types something, we check if the
+        // form fields are valid.
+
+
+        if ( parseInt(valueProductionPassed2Store.value) > (parseInt(counterEnd.value) - parseInt(counterBegin.value) ) ) {
+            valueProductionPassed2StoreError.textContent = 'Величина должна быть меньше или равна разнице конечных и нач. данных счетчика ! ('
+                + (parseInt(counterEnd.value) - parseInt(counterBegin.value) )+' )';
+            valueProductionPassed2StoreError.className = 'error active';
+        } else {
+            valueProductionPassed2StoreError.className = 'error unActive';
+            valueProductionPassed2StoreError.textContent = '';
+        }
+
+
+        console.info(parseInt(valueProductionPassed2Store.value)  );
+
+        // if(!email.validity.valid) {
+        //     // Если поле email не валидно, отображаем соответствующее сообщение об ошибке
+        //     showError();
+        //     // Затем предотвращаем стандартное событие отправки формы
+        //     event.preventDefault();
+        // }
+    });
+
 
 
     // function showError() {
